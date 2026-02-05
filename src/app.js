@@ -1,20 +1,28 @@
+import dotenv from "dotenv";
+dotenv.config();
+
 import express from "express";
-import mongoose from "mongoose";
 import passport from "passport";
-import { initializePassport } from "./config/passport.config.js";
-import sessionsRouter from "./routes/api/sessions.js";
+
+import { connectDB } from "./config/database.js";
+import "./config/passport.config.js";
+import routes from "./routes/index.js";
 
 const app = express();
-const PORT = 8080;
 
+// Middlewares base
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-
-initializePassport();
 app.use(passport.initialize());
 
-app.use("/api/sessions", sessionsRouter);
+// Routes
+app.use("/api", routes);
+
+// DB + Server
+const PORT = 8080;
+
+connectDB();
 
 app.listen(PORT, () => {
-  console.log(`Server running on port ${PORT}`);
+  console.log(`Servidor arriba en puerto ${PORT}`);
 });
