@@ -1,13 +1,10 @@
-import dotenv from "dotenv";
-dotenv.config();
+import "dotenv/config"; // 👈 esto VA PRIMERO
 
 import express from "express";
 import passport from "passport";
-
 import { connectDB } from "./config/database.js";
 import "./config/passport.config.js";
 import routes from "./routes/index.js";
-
 const app = express();
 
 // Middlewares base

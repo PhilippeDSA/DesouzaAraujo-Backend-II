@@ -10,7 +10,10 @@ const userSchema = new mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: "Carts"
   },
-  role: { type: String, default: "user" }
+  role: { type: String, default: "user" },
+  passwordResetToken: String,
+  passwordResetExpires: Date,
+
 });
 
 export const UserModel = mongoose.model("Users", userSchema);
