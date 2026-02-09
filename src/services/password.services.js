@@ -49,6 +49,11 @@ export default class PasswordService {
             throw new CustomError(Errors.INVALID_TOKEN, 400);
         }
 
+        const isSamePassword = bcrypt.compareSync(newPassword, user.password);
+        if (isSamePassword) {
+            throw new CustomError(Errors.SAME_PASSWORD, 400);
+        }
+
         user.password = bcrypt.hashSync(newPassword, 10);
         user.passwordResetToken = null;
         user.passwordResetExpires = null;
